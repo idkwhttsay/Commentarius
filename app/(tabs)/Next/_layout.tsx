@@ -2,6 +2,8 @@ import { TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { Months, nth, WeekDays } from '../../../constants/constants';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 
 export default function _layout() {
     const currentDate = new Date();
@@ -52,7 +54,7 @@ export default function _layout() {
                 },
                 headerLeft: () => (
                   <TouchableOpacity onPress={() => {router.back()}}>
-                   <Image source={require('../../../assets/images/chevron.backward.png')}/> 
+                   <FontAwesomeIcon size={20} icon={faArrowLeft}/>
                   </TouchableOpacity>
                 ),
             }}/>

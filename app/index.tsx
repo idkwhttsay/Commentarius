@@ -15,7 +15,7 @@ export default function HomePage() {
       inputRange: [0, 1],
       outputRange: ['0deg', '360deg'],
     });
-
+    
     const spin = () => {
       spinValue.setValue(0),
       Animated.timing(spinValue, {

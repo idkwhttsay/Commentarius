@@ -1,11 +1,14 @@
 import { View, Text, TouchableWithoutFeedback, TextInput, Keyboard, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 
 export interface SubjectRowProps {
   rowNumber: number;
 }
 
 export default function SubjectRow(data: SubjectRowProps) {
+  const [subject, setSubject] = useState('');
+  const [homework, setHomework] = useState('');
+
   return (
     <View style={{flexDirection: 'row', width: 'auto', height: 'auto', flex: 1}}>
         <View style={styles.number}>
@@ -18,6 +21,8 @@ export default function SubjectRow(data: SubjectRowProps) {
               placeholder='Subject'
               autoCorrect={false}
               multiline={true}
+              defaultValue={subject}
+              onChangeText={newSubject => setSubject(newSubject)}
             />
           </View>
         </TouchableWithoutFeedback>
@@ -28,6 +33,8 @@ export default function SubjectRow(data: SubjectRowProps) {
               placeholder='Homework'
               autoCorrect={false}
               multiline={true}
+              defaultValue={homework}
+              onChangeText={newHomework => setHomework(newHomework)}
             />
           </View>
         </TouchableWithoutFeedback>
