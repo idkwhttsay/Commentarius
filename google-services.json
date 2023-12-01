@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "499505743608",
+    "project_id": "commentarius-86f22",
+    "storage_bucket": "commentarius-86f22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499505743608:android:d1e7bda966fec1a8581d0d",
+        "android_client_info": {
+          "package_name": "com.dantatar.Commentarius"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "499505743608-tvcljo440otavc8p13ofpigd9q5lltb8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dantatar.Commentarius",
+            "certificate_hash": "109c3f6d31624509ab027d7e705a2086154a4761"
+          }
+        },
+        {
+          "client_id": "499505743608-2p1pf3982oi1rfi1k5ssq3defgmc4k5r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUYxphXmRNGBL-E2YQNrcP0gn2tMQV4mU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "499505743608-2p1pf3982oi1rfi1k5ssq3defgmc4k5r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "499505743608-3ml0o4ia4k15kim4invd4jctcih60p9f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dantatar.Commentarius"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -17,13 +17,16 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.dantatar.Commentarius"
+      "bundleIdentifier": "com.dantatar.Commentarius",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.dantatar.Commentarius"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +34,8 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-google-signin/google-signin",
       [
         "expo-build-properties",
         {
