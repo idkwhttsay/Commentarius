@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -8,11 +8,11 @@ import LottieView from 'lottie-react-native';
 import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import 'expo-dev-client'
 import auth from '@react-native-firebase/auth';
+import { router } from 'expo-router';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function HomePage() {
-
     GoogleSignin.configure({
         webClientId: '499505743608-2p1pf3982oi1rfi1k5ssq3defgmc4k5r.apps.googleusercontent.com',
     });
@@ -35,6 +35,23 @@ export default function HomePage() {
         });
     }
 
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
+
+    // Handle user state changes
+    function onAuthStateChanged(user: any) {
+        setUser(user);
+
+        console.log("user: ", user);
+
+        if (initializing) setInitializing(false);
+    }
+
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        return subscriber; // unsubscribe on unmount
+    }, []);
+
     const [fontsLoaded] = useFonts({
       'Jost-Regular': require('../assets/fonts/Jost-Regular.ttf'),
     });
@@ -49,6 +66,7 @@ export default function HomePage() {
       return null;
     }
     
+    if(!user){
         return (
             <SafeAreaView style={styles.view}>
                 <View style={{
@@ -113,11 +131,14 @@ export default function HomePage() {
                 <View style={styles.container}>
                     <GoogleSigninButton 
                         style={{width: 200, height: 50}}
-                        onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}
+                        onPress={() => onGoogleButtonPress().then(() => {router.push('/(tabs)/Current/CurrentWeek')})}
                     />
                 </View>
             </SafeAreaView>
         );
+    } else {
+        router.push('/(tabs)/Current/CurrentWeek');
+    }
 }
 
 const styles = StyleSheet.create({
