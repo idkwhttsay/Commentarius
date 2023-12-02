@@ -1,43 +1,39 @@
-import { View, Text, StyleSheet, Button, Platform } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
-import { ExpoRoot, router } from 'expo-router';
 import LottieView from 'lottie-react-native';
-import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin';
-import auth, { FirebaseAuthTypes, firebase } from '@react-native-firebase/auth';
-import db from "@react-native-firebase/database";
+import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
+import 'expo-dev-client'
+import auth from '@react-native-firebase/auth';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function HomePage() {
-    const webClientId = "499505743608-3ml0o4ia4k15kim4invd4jctcih60p9f.apps.googleusercontent.com"; 
 
-    useEffect(()=>{
-        GoogleSignin.configure({
-            webClientId: webClientId,
-        })
-    },[])
+    GoogleSignin.configure({
+        webClientId: '499505743608-2p1pf3982oi1rfi1k5ssq3defgmc4k5r.apps.googleusercontent.com',
+    });
 
-    const googleLogin = async () => {
-        try {
-            await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-            const { idToken } = await GoogleSignin.signIn();
-            // console.log("idToken:", idToken);
-        } catch (error: any) {
-            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-                console.log(error)
-            } else if (error.code === statusCodes.IN_PROGRESS) {
-                console.log(error)
-            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-                console.log(error)
-            } else {
-                console.log(error.message)
-            }
-        }
-    };
+    const onGoogleButtonPress = async () => {
+        // Check if your device supports Google Play
+        await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+        // Get the users ID token
+        const { idToken } = await GoogleSignin.signIn();
+      
+        // Create a Google credential with the token
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      
+        // Sign-in the user with the credential
+        const userGoogleSignIn = auth().signInWithCredential(googleCredential);
+        userGoogleSignIn.then((user) => {
+            console.log(user);
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
 
     const [fontsLoaded] = useFonts({
       'Jost-Regular': require('../assets/fonts/Jost-Regular.ttf'),
@@ -116,8 +112,8 @@ export default function HomePage() {
                 </View>
                 <View style={styles.container}>
                     <GoogleSigninButton 
-                        onPress={googleLogin}
                         style={{width: 200, height: 50}}
+                        onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}
                     />
                 </View>
             </SafeAreaView>
