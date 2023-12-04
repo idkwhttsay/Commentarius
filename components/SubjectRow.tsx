@@ -1,13 +1,37 @@
-import { View, Text, TouchableWithoutFeedback, TextInput, Keyboard, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, TouchableWithoutFeedback, TextInput, Keyboard, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import auth from '@react-native-firebase/auth';
+import db, { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 
 export interface SubjectRowProps {
   rowNumber: number;
+  dayNumber: number;
 }
 
 export default function SubjectRow(data: SubjectRowProps) {
+  const user = auth().currentUser;
+
   const [subject, setSubject] = useState('');
   const [homework, setHomework] = useState('');
+
+  const saveSubject = (subject: string) => {
+    db().ref(`/users/${user?.uid}/${data.dayNumber}/subject/${data.rowNumber}`).set(subject);
+  }
+
+  const onSubjectChange = (snapshot: FirebaseDatabaseTypes.DataSnapshot) => {
+    setSubject(snapshot.val());
+  }
+
+  useEffect(() => {
+    const refPath = `/users/${user?.uid}/${data.dayNumber}/subject/${data.rowNumber}`;
+
+    db()
+      .ref(refPath)
+      .orderByKey()
+      .on('value', onSubjectChange);
+
+    return () => db().ref(refPath).off('value', onSubjectChange);
+  });
 
   return (
     <View style={{flexDirection: 'row', width: 'auto', height: 'auto', flex: 1}}>
@@ -21,8 +45,11 @@ export default function SubjectRow(data: SubjectRowProps) {
               placeholder='Subject'
               autoCorrect={false}
               multiline={true}
-              defaultValue={subject}
-              onChangeText={newSubject => setSubject(newSubject)}
+              value={subject}
+              onChangeText={(newSubject) => {
+                setSubject(newSubject)
+                saveSubject(newSubject);
+              }}
             />
           </View>
         </TouchableWithoutFeedback>

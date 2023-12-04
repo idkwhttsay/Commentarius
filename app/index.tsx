@@ -22,12 +22,6 @@ export default function HomePage() {
         webClientId: '499505743608-2p1pf3982oi1rfi1k5ssq3defgmc4k5r.apps.googleusercontent.com',
     });
 
-    const createUser = async(user: FirebaseAuthTypes.UserCredential) => {
-        console.log('USER: ', user.user.uid);
-        db().ref(`/users/${user.user.uid}`).set({totalSubjects: 0});
-        db().ref(`/users/${user.user.uid}`).set({totalHomeworks: 0});
-    }
-
     const onGoogleButtonPress = async () => {
         // Check if your device supports Google Play
         await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
@@ -39,8 +33,8 @@ export default function HomePage() {
       
         // Sign-in the user with the credential
         const userGoogleSignIn = auth().signInWithCredential(googleCredential);
-        userGoogleSignIn.then( async (user) => {
-            await createUser(user);
+        userGoogleSignIn.then((user) => {
+            console.log("USER: ", user);
         }).catch((error) => {
             console.log(error);
         });

@@ -4,7 +4,7 @@ import { useLocalSearchParams } from 'expo-router'
 import SubjectRow from '../../../components/SubjectRow'
 
 export default function Day() {
-  const {id} = useLocalSearchParams()
+  const {id} = useLocalSearchParams();
   const num_id = Number(id);
 
   return (
@@ -21,14 +21,14 @@ export default function Day() {
         </View>
       </View>
 
-      <SubjectRow rowNumber={1}/>
-      <SubjectRow rowNumber={2}/>
-      <SubjectRow rowNumber={3}/>
-      <SubjectRow rowNumber={4}/>
-      <SubjectRow rowNumber={5}/>
-      <SubjectRow rowNumber={6}/>
-      <SubjectRow rowNumber={7}/>
-      <SubjectRow rowNumber={8}/>
+      <SubjectRow rowNumber={1} dayNumber={num_id}/>
+      <SubjectRow rowNumber={2} dayNumber={num_id}/>
+      <SubjectRow rowNumber={3} dayNumber={num_id}/>
+      <SubjectRow rowNumber={4} dayNumber={num_id}/>
+      <SubjectRow rowNumber={5} dayNumber={num_id}/>
+      <SubjectRow rowNumber={6} dayNumber={num_id}/>
+      <SubjectRow rowNumber={7} dayNumber={num_id}/>
+      <SubjectRow rowNumber={8} dayNumber={num_id}/>
     </View>
   )
 }
