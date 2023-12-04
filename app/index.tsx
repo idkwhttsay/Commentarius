@@ -1,14 +1,19 @@
-import { View, Text, StyleSheet } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import { useCallback } from 'react';
 import LottieView from 'lottie-react-native';
-import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
-import 'expo-dev-client'
-import auth from '@react-native-firebase/auth';
+
+import { useFonts } from 'expo-font';
 import { router } from 'expo-router';
+import 'expo-dev-client'
+import * as SplashScreen from 'expo-splash-screen';
+
+import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import db from '@react-native-firebase/database';
+
+import GoogleText from '../components/GoogleText';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -16,6 +21,12 @@ export default function HomePage() {
     GoogleSignin.configure({
         webClientId: '499505743608-2p1pf3982oi1rfi1k5ssq3defgmc4k5r.apps.googleusercontent.com',
     });
+
+    const createUser = async(user: FirebaseAuthTypes.UserCredential) => {
+        console.log('USER: ', user.user.uid);
+        db().ref(`/users/${user.user.uid}`).set({totalSubjects: 0});
+        db().ref(`/users/${user.user.uid}`).set({totalHomeworks: 0});
+    }
 
     const onGoogleButtonPress = async () => {
         // Check if your device supports Google Play
@@ -28,22 +39,19 @@ export default function HomePage() {
       
         // Sign-in the user with the credential
         const userGoogleSignIn = auth().signInWithCredential(googleCredential);
-        userGoogleSignIn.then((user) => {
-            console.log(user);
+        userGoogleSignIn.then( async (user) => {
+            await createUser(user);
         }).catch((error) => {
             console.log(error);
         });
     }
 
-    const [initializing, setInitializing] = useState(true);
-    const [user, setUser] = useState();
+    const [initializing, setInitializing] = useState<boolean>(true);
+    const [user, setUser] = useState<FirebaseAuthTypes.UserCredential | null>(null);
 
     // Handle user state changes
     function onAuthStateChanged(user: any) {
         setUser(user);
-
-        console.log("user: ", user);
-
         if (initializing) setInitializing(false);
     }
 
@@ -65,8 +73,7 @@ export default function HomePage() {
     if (!fontsLoaded) {
       return null;
     }
-    
-    if(!user){
+
         return (
             <SafeAreaView style={styles.view}>
                 <View style={{
@@ -82,52 +89,7 @@ export default function HomePage() {
                     />
                 </View>
                 <Text style={styles.big}>Welcome!</Text>
-                <View style={{ flexDirection: 'row'}}>
-                    <Text style={styles.log}>Log into your </Text>
-                    <Text
-                        style={{
-                            color: '#4285F4',
-                            fontSize: 28,
-                            fontFamily: 'Jost-Regular',
-                        }}
-                    >G</Text>
-                    <Text
-                        style={{
-                            color: '#DB4437',
-                            fontSize: 28,
-                            fontFamily: 'Jost-Regular',
-                        }}
-                    >o</Text>
-                    <Text
-                        style={{
-                            color: '#F4B400',
-                            fontSize: 28,
-                            fontFamily: 'Jost-Regular',
-                        }}
-                    >o</Text>
-                    <Text
-                        style={{
-                            color: '#4285F4',
-                            fontSize: 28,
-                            fontFamily: 'Jost-Regular',
-                        }}
-                    >g</Text>
-                    <Text
-                        style={{
-                            color: '#0F9D58',
-                            fontSize: 28,
-                            fontFamily: 'Jost-Regular',
-                        }}
-                    >l</Text>
-                    <Text
-                        style={{
-                            color: '#DB4437',
-                            fontSize: 28,
-                            fontFamily: 'Jost-Regular',
-                        }}
-                    >e{' '}</Text>
-                    <Text style={styles.log}>account</Text>
-                </View>
+                <GoogleText />
                 <View style={styles.container}>
                     <GoogleSigninButton 
                         style={{width: 200, height: 50}}
@@ -136,9 +98,6 @@ export default function HomePage() {
                 </View>
             </SafeAreaView>
         );
-    } else {
-        router.push('/(tabs)/Current/CurrentWeek');
-    }
 }
 
 const styles = StyleSheet.create({
@@ -167,4 +126,3 @@ const styles = StyleSheet.create({
         color: '#2A9DF4',
     },
 });
-
