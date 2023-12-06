@@ -15,7 +15,11 @@ export default function SubjectRow(data: SubjectRowProps) {
   const [homework, setHomework] = useState('');
 
   const saveSubject = (subject: string) => {
-    db().ref(`/users/${user?.uid}/${data.dayNumber}/subject/${data.rowNumber}`).set(subject);
+    if(subject != ""){
+      db().ref(`/users/${user?.uid}/${data.dayNumber}/subject/${data.rowNumber}`).set(subject);
+    } else {
+      db().ref(`/users/${user?.uid}/${data.dayNumber}/subject/${data.rowNumber}`).set(null);
+    }
   }
 
   const onSubjectChange = (snapshot: FirebaseDatabaseTypes.DataSnapshot) => {
@@ -46,9 +50,9 @@ export default function SubjectRow(data: SubjectRowProps) {
               autoCorrect={false}
               multiline={true}
               value={subject}
-              onChangeText={(newSubject) => {
+              onChangeText={ async (newSubject) => {
                 setSubject(newSubject)
-                saveSubject(newSubject);
+                await saveSubject(newSubject);
               }}
             />
           </View>

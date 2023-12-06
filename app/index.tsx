@@ -9,9 +9,9 @@ import { router } from 'expo-router';
 import 'expo-dev-client'
 import * as SplashScreen from 'expo-splash-screen';
 
+
 import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import db from '@react-native-firebase/database';
 
 import GoogleText from '../components/GoogleText';
 
@@ -68,6 +68,7 @@ export default function HomePage() {
       return null;
     }
 
+	if(!user){
         return (
             <SafeAreaView style={styles.view}>
                 <View style={{
@@ -92,6 +93,9 @@ export default function HomePage() {
                 </View>
             </SafeAreaView>
         );
+	} else {
+		router.push('/(tabs)/Current/CurrentWeek');
+	}
 }
 
 const styles = StyleSheet.create({
