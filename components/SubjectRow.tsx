@@ -35,9 +35,9 @@ export default function SubjectRow(data: SubjectRowProps) {
 
   const saveHomework = async (hw: string) => {
     if(hw){
-      await db().ref(`/users/${user?.uid}/${cur.getDate()}homework/${data.rowNumber}`).set(hw);
+      await db().ref(`/users/${user?.uid}/${cur.getDate()}-${cur.getMonth()}/homework/${data.rowNumber}`).set(hw);
     } else {
-      await db().ref(`/users/${user?.uid}/${cur.getDate()}homework/${data.rowNumber}`).set(null);
+      await db().ref(`/users/${user?.uid}/${cur.getDate()}-${cur.getMonth()}/homework/${data.rowNumber}`).set(null);
     }
   }
 
@@ -51,7 +51,7 @@ export default function SubjectRow(data: SubjectRowProps) {
 
   useEffect(() => {
     const refPath1 = `/users/${user?.uid}/${data.dayNumber}subject/${data.rowNumber}`;
-    const refPath2 = `/users/${user?.uid}/${cur.getDate()}homework/${data.rowNumber}`;
+    const refPath2 = `/users/${user?.uid}/${cur.getDate()}-${cur.getMonth()}/homework/${data.rowNumber}`;
 
     db()
       .ref(refPath1)

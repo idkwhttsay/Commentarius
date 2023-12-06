@@ -29,26 +29,22 @@ export default function WeekDay(data: DayProps) {
 
   useEffect(() => {
     const user = auth().currentUser;
-    const refPath = `/users/${user?.uid}/${data.day}subject`;
+    const refPath1 = `/users/${user?.uid}/${data.day}subject`;
+    const refPath2 = `/users/${user?.uid}/${data.date}-${data.month}/homework`;
 
     db()
-      .ref(refPath)
+      .ref(refPath1)
       .orderByKey()
       .on('value', onTotalClassesChange);
 
-    return () => db().ref(refPath).off('value', onTotalClassesChange);
-  });
-
-  useEffect(() => {
-    const user = auth().currentUser;
-    const refPath = `/users/${user?.uid}/${data.date}homework`;
-
     db()
-      .ref(refPath)
+      .ref(refPath2)
       .orderByKey()
       .on('value', onTotalHwsChange);
 
-    return () => db().ref(refPath).off('value', onTotalHwsChange);
+    () => db().ref(refPath1).off('value', onTotalClassesChange);
+    () => db().ref(refPath2).off('value', onTotalHwsChange);
+    return;
   });
 
   return (
