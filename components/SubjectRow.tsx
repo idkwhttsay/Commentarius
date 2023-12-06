@@ -40,7 +40,7 @@ export default function SubjectRow(data: SubjectRowProps) {
   return (
     <View style={{flexDirection: 'row', width: 'auto', height: 'auto', flex: 1}}>
         <View style={styles.number}>
-          <Text style={styles.body}>{data.rowNumber}</Text>
+          <Text style={styles.body}>{data.rowNumber+1}</Text>
         </View>
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} accessible={false}>
           <View style={styles.subject}>
