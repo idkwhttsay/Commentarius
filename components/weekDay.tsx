@@ -7,20 +7,29 @@ import auth from '@react-native-firebase/auth';
 export default function WeekDay(data: DayProps) {
 
   const [classes, setClasses] = useState<number>(0);
+  const [hws, setHws] = useState<number>(0);
 
   const onTotalClassesChange = (snaphot: FirebaseDatabaseTypes.DataSnapshot) => {
     if(snaphot.val()){
       const values: string[] = Object.values(snaphot.val());
-      console.log(values);
       setClasses(values.length);
     } else {
       setClasses(0);
     }
   }
 
+  const onTotalHwsChange = (snaphot: FirebaseDatabaseTypes.DataSnapshot) => {
+    if(snaphot.val()){
+      const values: string[] = Object.values(snaphot.val());
+      setHws(values.length);
+    } else {
+      setHws(0);
+    }
+  }
+
   useEffect(() => {
     const user = auth().currentUser;
-    const refPath = `/users/${user?.uid}/${data.day}/subject`;
+    const refPath = `/users/${user?.uid}/${data.day}subject`;
 
     db()
       .ref(refPath)
@@ -30,6 +39,18 @@ export default function WeekDay(data: DayProps) {
     return () => db().ref(refPath).off('value', onTotalClassesChange);
   });
 
+  useEffect(() => {
+    const user = auth().currentUser;
+    const refPath = `/users/${user?.uid}/${data.date}homework`;
+
+    db()
+      .ref(refPath)
+      .orderByKey()
+      .on('value', onTotalHwsChange);
+
+    return () => db().ref(refPath).off('value', onTotalHwsChange);
+  });
+
   return (
     <View style={styles.root}>
       <View style={{marginRight: 'auto'}}>
@@ -37,8 +58,8 @@ export default function WeekDay(data: DayProps) {
         <Text style={styles.date}>{data.date}{nth(data.date)} of {Months[data.month]}</Text>
       </View>
       <View style={{marginLeft: 'auto', justifyContent: 'center'}}>
-        <Text style={styles.info}>{classes} Classes</Text>
-        <Text style={styles.info}>TO DO: Show #Homework</Text>
+        <Text style={styles.info}>{classes} Class(es)</Text>
+        <Text style={styles.info}>{hws} Homework(s)</Text>
       </View>
     </View>
   );

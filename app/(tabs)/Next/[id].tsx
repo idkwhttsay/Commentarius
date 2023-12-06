@@ -21,14 +21,14 @@ export default function Day() {
         </View>
       </View>
 
-      <SubjectRow rowNumber={0} dayNumber={num_id}/>
-      <SubjectRow rowNumber={1} dayNumber={num_id}/>
-      <SubjectRow rowNumber={2} dayNumber={num_id}/>
-      <SubjectRow rowNumber={3} dayNumber={num_id}/>
-      <SubjectRow rowNumber={4} dayNumber={num_id}/>
-      <SubjectRow rowNumber={5} dayNumber={num_id}/>
-      <SubjectRow rowNumber={6} dayNumber={num_id}/>
-      <SubjectRow rowNumber={7} dayNumber={num_id}/>
+      <SubjectRow rowNumber={0} dayNumber={num_id} currentWeek={false}/>
+      <SubjectRow rowNumber={1} dayNumber={num_id} currentWeek={false}/>
+      <SubjectRow rowNumber={2} dayNumber={num_id} currentWeek={false}/>
+      <SubjectRow rowNumber={3} dayNumber={num_id} currentWeek={false}/>
+      <SubjectRow rowNumber={4} dayNumber={num_id} currentWeek={false}/>
+      <SubjectRow rowNumber={5} dayNumber={num_id} currentWeek={false}/>
+      <SubjectRow rowNumber={6} dayNumber={num_id} currentWeek={false}/>
+      <SubjectRow rowNumber={7} dayNumber={num_id} currentWeek={false}/>
     </View>
   )
 }

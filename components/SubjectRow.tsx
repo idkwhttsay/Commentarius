@@ -6,19 +6,38 @@ import db, { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 export interface SubjectRowProps {
   rowNumber: number;
   dayNumber: number;
+  currentWeek: boolean;
 }
 
 export default function SubjectRow(data: SubjectRowProps) {
   const user = auth().currentUser;
 
-  const [subject, setSubject] = useState('');
-  const [homework, setHomework] = useState('');
+  var today = new Date();
+  if(!data.currentWeek){
+    today.setDate(today.getDate()+7);
+  }
 
-  const saveSubject = (subject: string) => {
-    if(subject != ""){
-      db().ref(`/users/${user?.uid}/${data.dayNumber}/subject/${data.rowNumber}`).set(subject);
+  var x = today.getDay();
+  var cur = new Date();
+  cur.setDate(today.getDate() - x + data.dayNumber);
+
+
+  const [subject, setSubject] = useState<string>('');
+  const [homework, setHomework] = useState<string>('');
+
+  const saveSubject = async (sbj: string) => {
+    if(sbj){
+      await db().ref(`/users/${user?.uid}/${data.dayNumber}subject/${data.rowNumber}`).set(sbj);
     } else {
-      db().ref(`/users/${user?.uid}/${data.dayNumber}/subject/${data.rowNumber}`).set(null);
+      await db().ref(`/users/${user?.uid}/${data.dayNumber}subject/${data.rowNumber}`).set(null);
+    }
+  }
+
+  const saveHomework = async (hw: string) => {
+    if(hw){
+      await db().ref(`/users/${user?.uid}/${cur.getDate()}homework/${data.rowNumber}`).set(hw);
+    } else {
+      await db().ref(`/users/${user?.uid}/${cur.getDate()}homework/${data.rowNumber}`).set(null);
     }
   }
 
@@ -26,15 +45,27 @@ export default function SubjectRow(data: SubjectRowProps) {
     setSubject(snapshot.val());
   }
 
+  const onHwChange = (snapshot: FirebaseDatabaseTypes.DataSnapshot) => {
+    setHomework(snapshot.val());
+  }
+
   useEffect(() => {
-    const refPath = `/users/${user?.uid}/${data.dayNumber}/subject/${data.rowNumber}`;
+    const refPath1 = `/users/${user?.uid}/${data.dayNumber}subject/${data.rowNumber}`;
+    const refPath2 = `/users/${user?.uid}/${cur.getDate()}homework/${data.rowNumber}`;
 
     db()
-      .ref(refPath)
+      .ref(refPath1)
       .orderByKey()
       .on('value', onSubjectChange);
 
-    return () => db().ref(refPath).off('value', onSubjectChange);
+    db()
+      .ref(refPath2)
+      .orderByKey()
+      .on('value', onHwChange);
+
+    () => db().ref(refPath1).off('value', onSubjectChange);
+    () => db().ref(refPath2).off('value', onHwChange);
+    return;
   });
 
   return (
@@ -52,7 +83,7 @@ export default function SubjectRow(data: SubjectRowProps) {
               value={subject}
               onChangeText={ async (newSubject) => {
                 setSubject(newSubject)
-                await saveSubject(newSubject);
+                saveSubject(newSubject);
               }}
             />
           </View>
@@ -64,8 +95,11 @@ export default function SubjectRow(data: SubjectRowProps) {
               placeholder='Homework'
               autoCorrect={false}
               multiline={true}
-              defaultValue={homework}
-              onChangeText={newHomework => setHomework(newHomework)}
+              value={homework}
+              onChangeText={ async (newHomework) => {
+                setHomework(newHomework)
+                saveHomework(newHomework);
+              }}
             />
           </View>
         </TouchableWithoutFeedback>
