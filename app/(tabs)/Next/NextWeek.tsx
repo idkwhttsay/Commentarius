@@ -1,8 +1,8 @@
-import { View, StyleSheet } from 'react-native';
-import React from 'react';
-import WeekDay from '../../../components/weekDay';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useRouter } from 'expo-router';
+import { View, StyleSheet } from "react-native";
+import React from "react";
+import WeekDay from "../../../components/weekDay";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useRouter } from "expo-router";
 
 export default function NextWeek() {
   var cur = new Date();
@@ -30,75 +30,104 @@ export default function NextWeek() {
   Saturday.setDate(Saturday.getDate() + 7);
   Saturday.setDate(Saturday.getDate() - (x - 6));
 
-  const router = useRouter()
+  const router = useRouter();
 
   return (
-  <View style={styles.container}>
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => {router.push('/Next/0')}}>
-        <WeekDay 
-          date={Sunday.getDate()}
-          day={Sunday.getDay()}
-          month={Sunday.getMonth()}
-        />
-      </TouchableOpacity>
-    </View>
-    <View style={styles.container}>
-    <TouchableOpacity onPress={() => {router.push('/Next/1')}}>
-        <WeekDay 
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => {
+            router.push("/Next/0");
+          }}
+        >
+          <WeekDay
+            date={Sunday.getDate()}
+            day={Sunday.getDay()}
+            month={Sunday.getMonth()}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => {
+            router.push("/Next/1");
+          }}
+        >
+          <WeekDay
             date={Monday.getDate()}
             day={Monday.getDay()}
             month={Monday.getMonth()}
-        />
-      </TouchableOpacity>
-    </View>
-    <View style={styles.container}>
-    <TouchableOpacity onPress={() => {router.push('/Next/2')}}>
-        <WeekDay 
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => {
+            router.push("/Next/2");
+          }}
+        >
+          <WeekDay
             date={Tuesday.getDate()}
             day={Tuesday.getDay()}
             month={Tuesday.getMonth()}
-        />
-      </TouchableOpacity>
-    </View>
-    <View style={styles.container}>
-    <TouchableOpacity onPress={() => {router.push('/Next/3')}}>
-        <WeekDay 
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => {
+            router.push("/Next/3");
+          }}
+        >
+          <WeekDay
             date={Wednesday.getDate()}
             day={Wednesday.getDay()}
             month={Wednesday.getMonth()}
-        />
-      </TouchableOpacity>
-    </View>
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => {router.push('/Next/4')}}>
-        <WeekDay 
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => {
+            router.push("/Next/4");
+          }}
+        >
+          <WeekDay
             date={Thursday.getDate()}
             day={Thursday.getDay()}
             month={Thursday.getMonth()}
-        />
-      </TouchableOpacity>
-    </View>
-    <View style={styles.container}>
-    <TouchableOpacity onPress={() => {router.push('/Next/5')}}>
-        <WeekDay 
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => {
+            router.push("/Next/5");
+          }}
+        >
+          <WeekDay
             date={Friday.getDate()}
             day={Friday.getDay()}
             month={Friday.getMonth()}
-        />
-      </TouchableOpacity>
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => {
+            router.push("/Next/6");
+          }}
+        >
+          <WeekDay
+            date={Saturday.getDate()}
+            day={Saturday.getDay()}
+            month={Saturday.getMonth()}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => {router.push('/Next/6')}}>
-        <WeekDay 
-          date={Saturday.getDate()}
-          day={Saturday.getDay()}
-          month={Saturday.getMonth()}
-        />
-      </TouchableOpacity>
-    </View>
-  </View>
-);}
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
