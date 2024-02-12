@@ -13,32 +13,23 @@ export default function WeekDay(data: DayProps) {
   ) => {
     if (snaphot.val()) {
       const values: string[] = Object.values(snaphot.val());
-      setClasses(values.length);
-    } else {
-      setClasses(0);
-    }
-  };
+      var cnt = 0;
+      for (let i = 0; i < values.length; ++i) {
+        if (values[i] != null) {
+          cnt++;
+        }
+      }
 
-  const onTotalHwsChange = (snaphot: FirebaseDatabaseTypes.DataSnapshot) => {
-    if (snaphot.val()) {
-      const values: string[] = Object.values(snaphot.val());
-      setHws(values.length);
-    } else {
-      setHws(0);
+      setClasses(cnt);
     }
   };
 
   useEffect(() => {
     const user = auth().currentUser;
     const refPath1 = `/users/${user?.uid}/${data.day}subject`;
-    const refPath2 = `/users/${user?.uid}/${data.date}-${data.month}/homework`;
 
     db().ref(refPath1).orderByKey().on("value", onTotalClassesChange);
-
-    db().ref(refPath2).orderByKey().on("value", onTotalHwsChange);
-
     () => db().ref(refPath1).off("value", onTotalClassesChange);
-    () => db().ref(refPath2).off("value", onTotalHwsChange);
     return;
   });
 

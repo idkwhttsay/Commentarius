@@ -43,46 +43,16 @@ export default function SubjectRow(data: SubjectRowProps) {
     }
   };
 
-  const saveHomework = async (hw: string) => {
-    if (hw) {
-      await db()
-        .ref(
-          `/users/${user?.uid}/${cur.getDate()}-${cur.getMonth()}/homework/${
-            data.rowNumber
-          }`
-        )
-        .set(hw);
-    } else {
-      await db()
-        .ref(
-          `/users/${user?.uid}/${cur.getDate()}-${cur.getMonth()}/homework/${
-            data.rowNumber
-          }`
-        )
-        .set(null);
-    }
-  };
-
   const onSubjectChange = (snapshot: FirebaseDatabaseTypes.DataSnapshot) => {
     setSubject(snapshot.val());
   };
 
-  const onHwChange = (snapshot: FirebaseDatabaseTypes.DataSnapshot) => {
-    setHomework(snapshot.val());
-  };
-
   useEffect(() => {
     const refPath1 = `/users/${user?.uid}/${data.dayNumber}subject/${data.rowNumber}`;
-    const refPath2 = `/users/${
-      user?.uid
-    }/${cur.getDate()}-${cur.getMonth()}/homework/${data.rowNumber}`;
 
     db().ref(refPath1).orderByKey().on("value", onSubjectChange);
 
-    db().ref(refPath2).orderByKey().on("value", onHwChange);
-
     () => db().ref(refPath1).off("value", onSubjectChange);
-    () => db().ref(refPath2).off("value", onHwChange);
     return;
   });
 
@@ -124,7 +94,6 @@ export default function SubjectRow(data: SubjectRowProps) {
             value={homework}
             onChangeText={async (newHomework) => {
               setHomework(newHomework);
-              saveHomework(newHomework);
             }}
           />
         </View>

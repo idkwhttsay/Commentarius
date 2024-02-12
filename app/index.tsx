@@ -75,40 +75,36 @@ export default function HomePage() {
     return null;
   }
 
-  if (!user) {
-    return (
-      <SafeAreaView style={styles.view}>
-        <View
-          style={{
-            flex: 2,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <LottieView
-            source={require("../assets/images/Loader.json")}
-            autoPlay
-            loop={true}
-            style={{ width: 400, height: 400 }}
-          />
-        </View>
-        <Text style={styles.big}>Welcome!</Text>
-        <GoogleText />
-        <View style={styles.container}>
-          <GoogleSigninButton
-            style={{ width: 200, height: 50 }}
-            onPress={() =>
-              onGoogleButtonPress().then(() => {
-                router.push("/(tabs)/Current/CurrentWeek");
-              })
-            }
-          />
-        </View>
-      </SafeAreaView>
-    );
-  } else {
-    router.push("/(tabs)/Current/CurrentWeek");
-  }
+  return (
+    <SafeAreaView style={styles.view}>
+      <View
+        style={{
+          flex: 2,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <LottieView
+          source={require("../assets/images/Loader.json")}
+          autoPlay
+          loop={true}
+          style={{ width: 400, height: 400 }}
+        />
+      </View>
+      <Text style={styles.big}>Welcome!</Text>
+      <GoogleText />
+      <View style={styles.container}>
+        <GoogleSigninButton
+          style={{ width: 200, height: 50 }}
+          onPress={() =>
+            onGoogleButtonPress().then(() => {
+              router.push("/(tabs)/Current/CurrentWeek");
+            })
+          }
+        />
+      </View>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({

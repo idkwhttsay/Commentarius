@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.dantatar.Commentarius",
@@ -53,6 +55,7 @@
       "eas": {
         "projectId": "1109534c-41fd-4a1a-8314-d5209bd5f364"
       }
-    }
+    },
+    "owner": "commentarius"
   }
 }
