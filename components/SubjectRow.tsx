@@ -9,6 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import auth from "@react-native-firebase/auth";
 import db, { FirebaseDatabaseTypes } from "@react-native-firebase/database";
+import { getWeekNumber } from "../constants/constants";
 
 export interface SubjectRowProps {
   rowNumber: number;
@@ -28,31 +29,55 @@ export default function SubjectRow(data: SubjectRowProps) {
   var cur = new Date();
   cur.setDate(today.getDate() - x + data.dayNumber);
 
+  const week_num = getWeekNumber(cur);
+
   const [subject, setSubject] = useState<string>("");
   const [homework, setHomework] = useState<string>("");
 
   const saveSubject = async (sbj: string) => {
+    const ref = `/users/${user?.uid}/${data.dayNumber}subject/${data.rowNumber}`;
     if (sbj) {
-      await db()
-        .ref(`/users/${user?.uid}/${data.dayNumber}subject/${data.rowNumber}`)
-        .set(sbj);
+      await db().ref(ref).set(sbj);
     } else {
-      await db()
-        .ref(`/users/${user?.uid}/${data.dayNumber}subject/${data.rowNumber}`)
-        .set(null);
+      await db().ref(ref).set(null);
     }
   };
+
+  const saveHomework = async (hw: string) => {
+    const ref = `/users/${user?.uid}/week${week_num}/day${data.dayNumber}/${data.rowNumber}`;
+    if (hw) {
+      await db().ref(ref).set(hw);
+    } else {
+      await db().ref(ref).set(null);
+    }
+  };
+
+  const deletePreviousWeek = async () => {
+    const ref = `/users/${user?.uid}/week${week_num}`;
+    await db().ref(ref).set(null);
+  }
 
   const onSubjectChange = (snapshot: FirebaseDatabaseTypes.DataSnapshot) => {
     setSubject(snapshot.val());
   };
 
+  const onHomeworkChange = (snapshot: FirebaseDatabaseTypes.DataSnapshot) => {
+    setHomework(snapshot.val());
+  };
+
   useEffect(() => {
+    if (data.currentWeek) {
+      deletePreviousWeek();
+    }
+
     const refPath1 = `/users/${user?.uid}/${data.dayNumber}subject/${data.rowNumber}`;
+    const refPath2 = `/users/${user?.uid}/week${week_num}/day${data.dayNumber}/${data.rowNumber}`;
 
     db().ref(refPath1).orderByKey().on("value", onSubjectChange);
+    db().ref(refPath2).orderByKey().on("value", onHomeworkChange);
 
     () => db().ref(refPath1).off("value", onSubjectChange);
+    () => db().ref(refPath2).off("value", onHomeworkChange);
     return;
   });
 
@@ -94,6 +119,7 @@ export default function SubjectRow(data: SubjectRowProps) {
             value={homework}
             onChangeText={async (newHomework) => {
               setHomework(newHomework);
+              saveHomework(newHomework);
             }}
           />
         </View>

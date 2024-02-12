@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
-import { WeekDays, DayProps, Months, nth } from "../constants/constants";
+import { WeekDays, DayProps, Months, nth, getWeekNumber } from "../constants/constants";
 import db, { FirebaseDatabaseTypes } from "@react-native-firebase/database";
 import auth from "@react-native-firebase/auth";
 
 export default function WeekDay(data: DayProps) {
   const [classes, setClasses] = useState<number>(0);
   const [hws, setHws] = useState<number>(0);
+  const week_num = getWeekNumber(data.CalendarDay);
 
   const onTotalClassesChange = (
     snaphot: FirebaseDatabaseTypes.DataSnapshot
@@ -24,12 +25,31 @@ export default function WeekDay(data: DayProps) {
     }
   };
 
+  const onTotalHomeworksChange = (
+    snaphot: FirebaseDatabaseTypes.DataSnapshot
+  ) => {
+    if (snaphot.val()) {
+      const values: string[] = Object.values(snaphot.val());
+      var cnt = 0;
+      for (let i = 0; i < values.length; ++i) {
+        if (values[i] != null) {
+          cnt++;
+        }
+      }
+
+      setHws(cnt);
+    }
+  };
+
   useEffect(() => {
     const user = auth().currentUser;
     const refPath1 = `/users/${user?.uid}/${data.day}subject`;
+    const refPath2 = `/users/${user?.uid}/week${week_num}/day${data.day}`;
 
     db().ref(refPath1).orderByKey().on("value", onTotalClassesChange);
+    db().ref(refPath2).orderByKey().on("value", onTotalHomeworksChange);
     () => db().ref(refPath1).off("value", onTotalClassesChange);
+    () => db().ref(refPath2).off("value", onTotalHomeworksChange);
     return;
   });
 
@@ -53,9 +73,9 @@ export default function WeekDay(data: DayProps) {
 const styles = StyleSheet.create({
   root: {
     width: "auto",
-    height: 93,
+    height: "auto",
     borderWidth: 1,
-    padding: 15,
+    padding: 20,
     flexDirection: "row",
   },
 

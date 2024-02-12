@@ -46,12 +46,11 @@ export default function HomePage() {
   };
 
   const [initializing, setInitializing] = useState<boolean>(true);
-  const [user, setUser] = useState<FirebaseAuthTypes.UserCredential | null>(
-    null
-  );
+  const [user, setUser] = useState<FirebaseAuthTypes.UserCredential | null>(null);
 
   // Handle user state changes
   function onAuthStateChanged(user: any) {
+    console.log(user);
     setUser(user);
     if (initializing) setInitializing(false);
   }
@@ -77,13 +76,11 @@ export default function HomePage() {
 
   return (
     <SafeAreaView style={styles.view}>
-      <View
-        style={{
-          flex: 2,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <View style={{
+        flex: 2,
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
         <LottieView
           source={require("../assets/images/Loader.json")}
           autoPlay
@@ -91,9 +88,9 @@ export default function HomePage() {
           style={{ width: 400, height: 400 }}
         />
       </View>
-      <Text style={styles.big}>Welcome!</Text>
-      <GoogleText />
       <View style={styles.container}>
+        <Text style={styles.big}>Welcome!</Text>
+        <GoogleText />
         <GoogleSigninButton
           style={{ width: 200, height: 50 }}
           onPress={() =>

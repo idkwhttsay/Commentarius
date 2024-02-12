@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TurboModuleRegistry } from "react-native";
 import React from "react";
 import WeekDay from "../../../components/weekDay";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -41,6 +41,7 @@ export default function NextWeek() {
           }}
         >
           <WeekDay
+            CalendarDay={Sunday}
             date={Sunday.getDate()}
             day={Sunday.getDay()}
             month={Sunday.getMonth()}
@@ -54,6 +55,7 @@ export default function NextWeek() {
           }}
         >
           <WeekDay
+            CalendarDay={Monday}
             date={Monday.getDate()}
             day={Monday.getDay()}
             month={Monday.getMonth()}
@@ -67,6 +69,7 @@ export default function NextWeek() {
           }}
         >
           <WeekDay
+            CalendarDay={Tuesday}
             date={Tuesday.getDate()}
             day={Tuesday.getDay()}
             month={Tuesday.getMonth()}
@@ -80,6 +83,7 @@ export default function NextWeek() {
           }}
         >
           <WeekDay
+            CalendarDay={Wednesday}
             date={Wednesday.getDate()}
             day={Wednesday.getDay()}
             month={Wednesday.getMonth()}
@@ -93,6 +97,7 @@ export default function NextWeek() {
           }}
         >
           <WeekDay
+            CalendarDay={Thursday}
             date={Thursday.getDate()}
             day={Thursday.getDay()}
             month={Thursday.getMonth()}
@@ -106,6 +111,7 @@ export default function NextWeek() {
           }}
         >
           <WeekDay
+            CalendarDay={Friday}
             date={Friday.getDate()}
             day={Friday.getDay()}
             month={Friday.getMonth()}
@@ -119,6 +125,7 @@ export default function NextWeek() {
           }}
         >
           <WeekDay
+            CalendarDay={Saturday}
             date={Saturday.getDate()}
             day={Saturday.getDay()}
             month={Saturday.getMonth()}

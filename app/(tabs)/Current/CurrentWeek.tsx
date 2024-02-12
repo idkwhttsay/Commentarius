@@ -33,6 +33,7 @@ export default function CurrentWeek() {
           }}
         >
           <WeekDay
+            CalendarDay={Sunday}
             date={Sunday.getDate()}
             day={Sunday.getDay()}
             month={Sunday.getMonth()}
@@ -46,6 +47,7 @@ export default function CurrentWeek() {
           }}
         >
           <WeekDay
+            CalendarDay={Monday}
             date={Monday.getDate()}
             day={Monday.getDay()}
             month={Monday.getMonth()}
@@ -59,6 +61,7 @@ export default function CurrentWeek() {
           }}
         >
           <WeekDay
+            CalendarDay={Tuesday}
             date={Tuesday.getDate()}
             day={Tuesday.getDay()}
             month={Tuesday.getMonth()}
@@ -72,6 +75,7 @@ export default function CurrentWeek() {
           }}
         >
           <WeekDay
+            CalendarDay={Wednesday}
             date={Wednesday.getDate()}
             day={Wednesday.getDay()}
             month={Wednesday.getMonth()}
@@ -85,6 +89,7 @@ export default function CurrentWeek() {
           }}
         >
           <WeekDay
+            CalendarDay={Thursday}
             date={Thursday.getDate()}
             day={Thursday.getDay()}
             month={Thursday.getMonth()}
@@ -98,6 +103,7 @@ export default function CurrentWeek() {
           }}
         >
           <WeekDay
+            CalendarDay={Friday}
             date={Friday.getDate()}
             day={Friday.getDay()}
             month={Friday.getMonth()}
@@ -111,6 +117,7 @@ export default function CurrentWeek() {
           }}
         >
           <WeekDay
+            CalendarDay={Saturday}
             date={Saturday.getDate()}
             day={Saturday.getDay()}
             month={Saturday.getMonth()}
