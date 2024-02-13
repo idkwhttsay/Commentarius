@@ -53,7 +53,7 @@ export default function SubjectRow(data: SubjectRowProps) {
   };
 
   const deletePreviousWeek = async () => {
-    const ref = `/users/${user?.uid}/week${week_num}`;
+    const ref = `/users/${user?.uid}/week${week_num - 2}`;
     await db().ref(ref).set(null);
   }
 

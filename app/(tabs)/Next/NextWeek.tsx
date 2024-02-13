@@ -1,4 +1,4 @@
-import { View, StyleSheet, TurboModuleRegistry } from "react-native";
+import { View, StyleSheet } from "react-native";
 import React from "react";
 import WeekDay from "../../../components/weekDay";
 import { TouchableOpacity } from "react-native-gesture-handler";
