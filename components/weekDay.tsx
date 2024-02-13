@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Dimensions } from "react-native";
 import { WeekDays, DayProps, Months, nth, getWeekNumber } from "../constants/constants";
 import db, { FirebaseDatabaseTypes } from "@react-native-firebase/database";
 import auth from "@react-native-firebase/auth";
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export default function WeekDay(data: DayProps) {
   const [classes, setClasses] = useState<number>(0);
@@ -71,11 +74,12 @@ export default function WeekDay(data: DayProps) {
 }
 
 const styles = StyleSheet.create({
+
   root: {
-    width: "auto",
+    width: windowWidth,
     height: "auto",
     borderWidth: 1,
-    padding: 20,
+    padding: windowHeight / 60,
     flexDirection: "row",
   },
 
