@@ -1,7 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import React from "react";
 import WeekDay from "../../../components/weekDay";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
 
 export default function CurrentWeek() {

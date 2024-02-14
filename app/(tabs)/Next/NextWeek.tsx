@@ -1,10 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import React from "react";
 import WeekDay from "../../../components/weekDay";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { WeekDays } from "../../../constants/constants";
 
 export default function NextWeek() {
   var cur = new Date();

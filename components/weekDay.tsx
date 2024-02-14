@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { WeekDays, DayProps, Months, nth, getWeekNumber } from "../constants/constants";
 import db, { FirebaseDatabaseTypes } from "@react-native-firebase/database";
 import auth from "@react-native-firebase/auth";
-import { TouchableHighlight } from "react-native-gesture-handler";
 import { router } from "expo-router";
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 export default function WeekDay(data: DayProps) {
   const [classes, setClasses] = useState<number>(0);
   const [hws, setHws] = useState<number>(0);
   const week_num = getWeekNumber(data.CalendarDay);
-
-
 
   const onTotalClassesChange = (
     snaphot: FirebaseDatabaseTypes.DataSnapshot
