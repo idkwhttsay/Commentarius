@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   heading: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
     fontFamily: 'Jost-Regular',
     marginBottom: 20,
