@@ -1,7 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import React from "react";
 import WeekDay from "../../../components/weekDay";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
 
 export default function CurrentWeek() {
@@ -26,104 +25,62 @@ export default function CurrentWeek() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            router.push("/Current/0");
-          }}
-        >
-          <WeekDay
-            CalendarDay={Sunday}
-            date={Sunday.getDate()}
-            day={Sunday.getDay()}
-            month={Sunday.getMonth()}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            router.push("/Current/1");
-          }}
-        >
-          <WeekDay
-            CalendarDay={Monday}
-            date={Monday.getDate()}
-            day={Monday.getDay()}
-            month={Monday.getMonth()}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            router.push("/Current/2");
-          }}
-        >
-          <WeekDay
-            CalendarDay={Tuesday}
-            date={Tuesday.getDate()}
-            day={Tuesday.getDay()}
-            month={Tuesday.getMonth()}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            router.push("/Current/3");
-          }}
-        >
-          <WeekDay
-            CalendarDay={Wednesday}
-            date={Wednesday.getDate()}
-            day={Wednesday.getDay()}
-            month={Wednesday.getMonth()}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            router.push("/Current/4");
-          }}
-        >
-          <WeekDay
-            CalendarDay={Thursday}
-            date={Thursday.getDate()}
-            day={Thursday.getDay()}
-            month={Thursday.getMonth()}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            router.push("/Current/5");
-          }}
-        >
-          <WeekDay
-            CalendarDay={Friday}
-            date={Friday.getDate()}
-            day={Friday.getDay()}
-            month={Friday.getMonth()}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            router.push("/Current/6");
-          }}
-        >
-          <WeekDay
-            CalendarDay={Saturday}
-            date={Saturday.getDate()}
-            day={Saturday.getDay()}
-            month={Saturday.getMonth()}
-          />
-        </TouchableOpacity>
-      </View>
+      <WeekDay
+        CalendarDay={Sunday}
+        date={Sunday.getDate()}
+        day={Sunday.getDay()}
+        month={Sunday.getMonth()}
+        currentWeek={true}
+        ind={0}
+      />
+      <WeekDay
+        CalendarDay={Monday}
+        date={Monday.getDate()}
+        day={Monday.getDay()}
+        month={Monday.getMonth()}
+        currentWeek={true}
+        ind={1}
+      />
+      <WeekDay
+        CalendarDay={Tuesday}
+        date={Tuesday.getDate()}
+        day={Tuesday.getDay()}
+        month={Tuesday.getMonth()}
+        currentWeek={true}
+        ind={2}
+      />
+      <WeekDay
+        CalendarDay={Wednesday}
+        date={Wednesday.getDate()}
+        day={Wednesday.getDay()}
+        month={Wednesday.getMonth()}
+        currentWeek={true}
+        ind={3}
+      />
+      <WeekDay
+        CalendarDay={Thursday}
+        date={Thursday.getDate()}
+        day={Thursday.getDay()}
+        month={Thursday.getMonth()}
+        currentWeek={true}
+        ind={4}
+      />
+      <WeekDay
+        CalendarDay={Friday}
+        date={Friday.getDate()}
+        day={Friday.getDay()}
+        month={Friday.getMonth()}
+        currentWeek={true}
+        ind={5}
+      />
+      <WeekDay
+        CalendarDay={Saturday}
+        date={Saturday.getDate()}
+        day={Saturday.getDay()}
+        month={Saturday.getMonth()}
+        currentWeek={true}
+        ind={6}
+      />
     </View>
   );
 }

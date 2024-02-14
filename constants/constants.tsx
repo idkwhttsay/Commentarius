@@ -54,5 +54,7 @@ export interface DayProps {
   day: number;
   month: number;
   date: number;
+  ind: number;
+  currentWeek: boolean;
   CalendarDay: Date;
 }
