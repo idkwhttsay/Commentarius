@@ -13,7 +13,7 @@ import {
   GoogleSignin,
   GoogleSigninButton,
 } from "@react-native-google-signin/google-signin";
-import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
+import auth from "@react-native-firebase/auth";
 
 import GoogleText from "../components/GoogleText";
 
@@ -25,30 +25,9 @@ export default function HomePage() {
       "499505743608-2p1pf3982oi1rfi1k5ssq3defgmc4k5r.apps.googleusercontent.com",
   });
 
-  const onGoogleButtonPress = async () => {
-    // Check if your device supports Google Play
-    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-    // Get the users ID token
-    const { idToken } = await GoogleSignin.signIn();
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
 
-    // Create a Google credential with the token
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-    // Sign-in the user with the credential
-    const userGoogleSignIn = auth().signInWithCredential(googleCredential);
-    userGoogleSignIn
-      .then((user) => {
-        console.log("USER: ", user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const [initializing, setInitializing] = useState<boolean>(true);
-  const [user, setUser] = useState<FirebaseAuthTypes.UserCredential | null>(null);
-
-  // Handle user state changes
   function onAuthStateChanged(user: any) {
     console.log(user);
     setUser(user);
@@ -57,8 +36,22 @@ export default function HomePage() {
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
+    return subscriber;
   }, []);
+
+  const onGoogleButtonPress = async () => {
+    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+    const { idToken } = await GoogleSignin.signIn();
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    const userGoogleSignIn = auth().signInWithCredential(googleCredential);
+    userGoogleSignIn.then((user) => {
+      console.log("USER: ", user);
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+
+  if (initializing) return null;
 
   const [fontsLoaded] = useFonts({
     "Jost-Regular": require("../assets/fonts/Jost-Regular.ttf"),
@@ -70,9 +63,7 @@ export default function HomePage() {
     }
   }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
-    return null;
-  }
+  if (!fontsLoaded) return null;
 
   return (
     <SafeAreaView style={styles.view}>
@@ -92,7 +83,7 @@ export default function HomePage() {
         <Text style={styles.big}>Welcome!</Text>
         <GoogleText />
         <GoogleSigninButton
-          style={{ width: 200, height: 50 }}
+          size={GoogleSigninButton.Size.Standard}
           onPress={() =>
             onGoogleButtonPress().then(() => {
               router.push("/(tabs)/Current/CurrentWeek");
