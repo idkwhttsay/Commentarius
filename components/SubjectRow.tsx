@@ -95,7 +95,7 @@ export default function SubjectRow(data: SubjectRowProps) {
         <View style={styles.subject}>
           <TextInput
             style={styles.body}
-            placeholder="Subject"
+            placeholder="Window"
             autoCorrect={false}
             multiline={true}
             value={subject}
@@ -113,7 +113,7 @@ export default function SubjectRow(data: SubjectRowProps) {
         <View style={styles.homework}>
           <TextInput
             style={styles.body}
-            placeholder="Homework"
+            placeholder="No homework"
             autoCorrect={false}
             multiline={true}
             value={homework}
