@@ -51,8 +51,6 @@ export default function HomePage() {
     });
   };
 
-  if (initializing) return null;
-
   const [fontsLoaded] = useFonts({
     "Jost-Regular": require("../assets/fonts/Jost-Regular.ttf"),
   });
@@ -64,6 +62,7 @@ export default function HomePage() {
   }, [fontsLoaded]);
 
   if (!fontsLoaded) return null;
+  if (initializing) return null;
 
   return (
     <SafeAreaView style={styles.view}>
