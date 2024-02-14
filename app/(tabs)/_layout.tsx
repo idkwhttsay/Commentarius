@@ -24,7 +24,7 @@ export default function _layout() {
         options={{
           headerShown: false,
           tabBarLabel: "This week",
-          tabBarIcon: () => <FontAwesomeIcon icon={faCalendar} />,
+          tabBarIcon: ({ color }) => <FontAwesomeIcon icon={faCalendar} color={color} />,
         }}
       />
       <Tabs.Screen
@@ -32,7 +32,7 @@ export default function _layout() {
         options={{
           headerShown: false,
           tabBarLabel: "Next week",
-          tabBarIcon: () => <FontAwesomeIcon icon={faCalendar} />,
+          tabBarIcon: ({ color }) => <FontAwesomeIcon icon={faCalendar} color={color} />,
         }}
       />
       <Tabs.Screen
@@ -40,7 +40,7 @@ export default function _layout() {
         options={{
           headerShown: false,
           tabBarLabel: "Profile",
-          tabBarIcon: () => <FontAwesomeIcon icon={faUser} />,
+          tabBarIcon: ({ color }) => <FontAwesomeIcon icon={faUser} color={color} />,
         }}
       />
     </Tabs>
