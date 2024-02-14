@@ -118,6 +118,7 @@ export default function NextWeek() {
           />
         </TouchableOpacity>
       </View>
+
       <View style={styles.container}>
         <TouchableOpacity
           onPress={() => {
