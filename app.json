@@ -26,7 +26,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.dantatar.Commentarius"
+      "package": "com.dantatar.Commentarius",
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",
