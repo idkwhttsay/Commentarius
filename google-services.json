@@ -8,26 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:499505743608:android:d1e7bda966fec1a8581d0d",
+        "mobilesdk_app_id": "1:499505743608:android:0fc3705a13801c74581d0d",
         "android_client_info": {
-          "package_name": "com.dantatar.Commentarius"
+          "package_name": "com.commentarius.Commentarius"
         }
       },
       "oauth_client": [
         {
-          "client_id": "499505743608-0hvsd0v2i01cb9g4rtqop30qk61eth7s.apps.googleusercontent.com",
+          "client_id": "499505743608-4f7d3na86e25r3pp0mb2knnnaru1rd38.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.dantatar.Commentarius",
-            "certificate_hash": "43e058d8e994c6e1f5713bceea597487adf9f17d"
-          }
-        },
-        {
-          "client_id": "499505743608-tvcljo440otavc8p13ofpigd9q5lltb8.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.dantatar.Commentarius",
-            "certificate_hash": "109c3f6d31624509ab027d7e705a2086154a4761"
+            "package_name": "com.commentarius.Commentarius",
+            "certificate_hash": "1e2e015445a34920b1517154d8af1a8760c30dd4"
           }
         },
         {
