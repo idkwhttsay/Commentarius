@@ -17,7 +17,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.commentarius.Commentarius",
+      "bundleIdentifier": "com.DanTatar.Commentarius",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
@@ -26,7 +26,7 @@
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.commentarius.Commentarius",
+      "package": "com.DanTatar.Commentarius",
       "versionCode": 1
     },
     "web": {
