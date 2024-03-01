@@ -20,23 +20,10 @@ import GoogleText from "../components/GoogleText";
 SplashScreen.preventAutoHideAsync();
 
 export default function HomePage() {
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
-
   GoogleSignin.configure({
     webClientId:
       "499505743608-2p1pf3982oi1rfi1k5ssq3defgmc4k5r.apps.googleusercontent.com",
   });
-
-  function onAuthStateChanged(user: any) {
-    setUser(user);
-    if (initializing) setInitializing(false);
-  }
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
-  }, []);
 
   const onGoogleButtonPress = async () => {
     const { idToken } = await GoogleSignin.signIn();
@@ -44,6 +31,7 @@ export default function HomePage() {
     const userGoogleSignIn = auth().signInWithCredential(googleCredential);
     userGoogleSignIn.then((user) => {
       console.log("USER: ", user);
+      router.push("/(tabs)/Current/CurrentWeek");
     }).catch((error) => {
       console.log(error);
     });
@@ -60,7 +48,6 @@ export default function HomePage() {
   }, [fontsLoaded]);
 
   if (!fontsLoaded) return null;
-  if (initializing) return null;
 
   return (
     <SafeAreaView style={styles.view}>
@@ -89,9 +76,7 @@ export default function HomePage() {
         <GoogleSigninButton
           size={GoogleSigninButton.Size.Standard}
           onPress={() =>
-            onGoogleButtonPress().then(() => {
-              router.push("/(tabs)/Current/CurrentWeek");
-            })
+            onGoogleButtonPress()
           }
         />
       </View>
